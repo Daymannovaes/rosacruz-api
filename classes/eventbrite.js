@@ -9,11 +9,14 @@ export class Eventbrite {
         this.date = new Date(get(event, 'start.local', undefined));
         this.dateUtc = new Date(get(event, 'start.utc', undefined));
 
+        this._orderFetched = false;
+
         this.__publishDate = new Date(get(event, 'publish_settings.published_date', undefined));
     }
 
     async fetchOrders() {
         this._orders = await api.eventOrders(this.id);
+        this._orderFetched = true;
         return this._orders;
     }
 
@@ -22,7 +25,7 @@ export class Eventbrite {
     }
 
     get info() {
-        return pick(this, ['id', 'url', 'name', 'date', 'dateUtc']);
+        return pick(this, ['id', 'url', 'name', 'date', 'dateUtc', '_orderFetched']);
     }
 }
 
