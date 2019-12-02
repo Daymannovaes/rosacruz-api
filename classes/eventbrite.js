@@ -10,8 +10,7 @@ export class Eventbrite {
         this.dateUtc = new Date(get(event, 'start.utc', undefined));
 
         this._orderFetched = false;
-
-        this.__publishDate = new Date(get(event, 'publish_settings.published_date', undefined));
+        this._event = event;
     }
 
     async fetchOrders() {

@@ -31,4 +31,5 @@ export const addUsersWithTag = (tag, users) => {
     return mcPost(`lists/${LIST_ID}`, data);
 }
 
-export const listLists = () => mcGet('lists');
+export const listCampaigns = () => mcGet('campaigns?count=100');
+export const campaignContent = campaignId => mcGet(`campaigns/${campaignId}/content`);
