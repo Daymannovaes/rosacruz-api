@@ -2,7 +2,7 @@ import { get, post } from 'axios';
 const KEY = process.env.EVENTBRITE_KEY;
 const ORG_ID = process.env.EVENTBRITE_ORG;
 
-const BASE_URL = 'https://www.eventbriteapi.com/v3/'; 
+const BASE_URL = 'https://www.eventbriteapi.com/v3'; 
 const ebGet = (path, qs = '') => get(`${BASE_URL}/${path}?token=${KEY}&${qs}`).then(r => r.data);
 
 export const getMe = () => ebGet('users/me');
