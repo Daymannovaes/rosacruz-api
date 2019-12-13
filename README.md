@@ -17,6 +17,9 @@ index.getLastEventFromBH();
 
 index.eventsInfoFromBH() // contains info about last events
 index.__events[index.BH][0].orders // contain all orders from the last event
+index.__events[index.BH][0].info // major info of the event
 
-index.addUsersFromBH(); // add users in mailchimp
+index._getEventFrom(index.BH, 1) // to get the second last event. 0 = last, 1 = second last, and so on
+
+index.addUsersFromBH(n = 0); // add users in mailchimp, where n equals the order of the event. 0 = last event, 1 = second last
 ```
