@@ -20,7 +20,7 @@ export class Eventbrite {
     }
 
     get orders() {
-        return this._orders.map(o => new Person(o));
+        return this._orders ? this._orders.map(o => new Person(o)) : this._orders;
     }
 
     get info() {

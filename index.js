@@ -40,6 +40,8 @@ export const getLastEventFromLS = () => _getLastEventFrom(LS);
 export const eventsInfoFromBH = () => __events[BH].map(e => e.info);
 export const eventsInfoFromLS = () => __events[LS].map(e => e.info);
 
+export const eventInfo = (city = BH, n = 0) => __events[city][n].info;
+
 export async function addUsersFrom(city, n = 0) {
     const tag = Tag(city);
     console.log(`add users from city ${city}, tag ${tag}, n ${n} starts`);
