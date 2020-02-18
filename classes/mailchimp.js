@@ -5,6 +5,7 @@ import { get, pick } from 'lodash';
 export class Campaign {
     constructor(campaign) {
         this.id = campaign.id;
+        this.web_id = campaign.web_id;
         this.name = get(campaign, 'settings.title');
 
         this.type = campaign.type || 'regular';
@@ -20,7 +21,9 @@ export class Campaign {
         this._campaign = campaign;
     }
 
-    async fetchContent() {
+    async fetchContent(force) {
+        if (this._contentFetched && !force) return this._content;
+
         this._content = await api.campaignContent(this.id);
         this._contentFetched = true;
         return this._content;
@@ -39,8 +42,8 @@ export class Campaign {
             if(err) {
                 return console.log(err);
             }
-        
+
             console.log(`Saving file ${filePath} ends`);
-        }); 
+        });
     }
 }

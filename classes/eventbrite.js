@@ -1,6 +1,8 @@
 import * as api from '../api/eventbrite.js';
 import { get, pick } from 'lodash';
 
+const pad = str => String(str).padStart(2, 0);
+
 export class Eventbrite {
     constructor(event) {
         this.id = event.id;
@@ -25,6 +27,10 @@ export class Eventbrite {
 
     get info() {
         return pick(this, ['id', 'url', 'name', 'date', 'dateUtc', '_orderFetched']);
+    }
+
+    get formattedDate() {
+        return `${pad(this.date.getDate())}/${pad(this.date.getMonth() + 1)}/${this.date.getFullYear()}`;
     }
 }
 
