@@ -23,4 +23,11 @@ index.__cities.BH.addUsersFromEvent(0); // add users in mailchimp
 index.__cities.LS, index.__cities.BH, index.__cities.CG, index.__cities.DIV
 index.__cities.BH.__events[0].info
 index.__cities.BH.__events[0].orders
+
+// creating campaign
+index.__cities.BH.fetchNextEvent(); // fetch next event from eventbrite, from BH
+// wait for log `fetch next event from belo horizonte ends` to show up
+
+index.__cities.BH.createCampaign() // create campaign from Next Event
+// wait for log `create campaign "palestra ..." for belo horizonte starts`
 ```
