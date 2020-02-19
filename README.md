@@ -13,21 +13,21 @@ MAILCHIMP_KEY=your_mc_key MAILCHIMP_LIST=your_list_id EVENTBRITE_KEY=your_eb_key
 
 import * as index from './index';
 
-index.__cities.BH._getEvent(0); // fetch last event from eventbrite, from BH
+index.BH._getEvent(0); // fetch last event from eventbrite, from BH
 // wait for log `get event from belo horizonte 0 ends` to show up
 
-index.__cities.BH.infoFromEvent(0); // use this to check NAME and DATE
+index.BH.infoFromEvent(0); // use this to check NAME and DATE
 
-index.__cities.BH.addUsersFromEvent(0); // add users in mailchimp
+index.BH.addUsersFromEvent(0); // add users in mailchimp
 
-index.__cities.LS, index.__cities.BH, index.__cities.CG, index.__cities.DIV
-index.__cities.BH.__events[0].info
-index.__cities.BH.__events[0].orders
+index.LS, index.BH, index.CG, index.DIV
+index.BH.__events[0].info
+index.BH.__events[0].orders
 
 // creating campaign
-index.__cities.BH.fetchNextEvent(); // fetch next event from eventbrite, from BH
+index.BH.fetchNextEvent(); // fetch next event from eventbrite, from BH
 // wait for log `fetch next event from belo horizonte ends` to show up
 
-index.__cities.BH.createCampaign() // create campaign from Next Event
-// wait for log `create campaign "palestra ..." for belo horizonte starts`
+index.BH.createCampaign() // create campaign from Next Event
+// wait for log `create campaign "palestra ..." for belo horizonte ends`
 ```

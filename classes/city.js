@@ -23,6 +23,9 @@ export class City {
         return `Palestra ${this.slug} ${this.__next_event.formattedDate}`;
     }
 
+
+    // ---- EVENTBRITE METHODS ----
+
     async fetchNextEvent() {
         console.log(`fetch next event from ${this.name} starts`);
 
@@ -62,6 +65,9 @@ export class City {
         return this.__events[n].info;
     }
 
+
+    // ---- MAILCHIMP METHODS ----
+
     async addUsersFromEvent(n = 0) {
         console.log(`add users from city ${this.name}, tag ${this.tag}, n ${n} starts`);
         await mailchimp.addUsersWithTag(tag, this.__events[n].orders.map(o => o.toMailchimpJSON()));
@@ -87,21 +93,3 @@ export class City {
         return this.campaign;
     }
 }
-
-export const BH = new City({
-    slug: 'BH',
-    name: 'belo horizonte',
-    mailchimpSegmentId: 584157,
-});
-
-export const LS = new City({
-    slug: 'LS',
-    name: 'lagoa santa',
-    mailchimpSegmentId: 584285,
-});
-
-export const DIV = new City({
-    slug: 'DIV',
-    name: 'divinopolis',
-    mailchimpSegmentId: 900149,
-});
