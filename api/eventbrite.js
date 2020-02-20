@@ -35,3 +35,6 @@ export const getPaginated = async ({ url, qs, type, maxRecords }) => {
 
     return records;
 };
+
+export const eventDetails = eventId => ebGet(`events/${eventId}`, 'expand=logo');
+export const eventDescription = eventId => ebGet(`events/${eventId}/description`);

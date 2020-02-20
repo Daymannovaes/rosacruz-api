@@ -1,4 +1,4 @@
-import { get, post } from 'axios';
+import { get, put, post } from 'axios';
 import { chain, uniqBy } from 'lodash';
 
 const KEY = process.env.MAILCHIMP_KEY;
@@ -12,6 +12,12 @@ const mcGet = (path, qs = '') => get(`${BASE_URL}/${path}?${qs}`, {
 }).then(r => r.data);
 
 const mcPost = (path, data) => post(`${BASE_URL}/${path}`, data, {
+    headers: {
+        'Authorization': `Basic ${KEY}`
+    }
+}).then(r => r.data);
+
+const mcPut = (path, data) => put(`${BASE_URL}/${path}`, data, {
     headers: {
         'Authorization': `Basic ${KEY}`
     }
@@ -61,3 +67,5 @@ export const createCampaign = ({
     };
     return mcPost(`campaigns`, data);
 }
+
+export const updateCampaignContent = (campaignId, html) => mcPut(`campaigns/${campaignId}/content`, { html });

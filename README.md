@@ -22,6 +22,7 @@ index.BH.addUsersFromEvent(0); // add users in mailchimp
 
 index.LS, index.BH, index.CG, index.DIV
 index.BH.__events[0].info
+index.BH.__events[0].detailedInfo // info + description + logo
 index.BH.__events[0].orders
 
 // creating campaign

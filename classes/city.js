@@ -70,14 +70,14 @@ export class City {
 
     async addUsersFromEvent(n = 0) {
         console.log(`add users from city ${this.name}, tag ${this.tag}, n ${n} starts`);
-        await mailchimp.addUsersWithTag(tag, this.__events[n].orders.map(o => o.toMailchimpJSON()));
+        await mailchimp.addUsersWithTag(this.tag, this.__events[n].orders.map(o => o.toMailchimpJSON()));
         console.log(`add users from city ${this.name}, tag ${this.tag}, n ${n} ends`);
     }
 
     async createCampaign({
         subject = this.__next_event.name,
         previewText
-    }) {
+    } = {}) {
         if (!this.readyToCreateCampaign) return undefined;
         console.log(`create campaign ${this.campaignName} for ${this.name} starts`);
         const campaign = await mailchimp.createCampaign({
@@ -89,7 +89,23 @@ export class City {
 
         this.campaign = new Campaign(campaign);
         console.log(`create campaign ${this.campaignName} for ${this.name} end`);
-        console.log(`go to https://us12.admin.mailchimp.com/campaigns/edit?id=${this.campaign.web_id}`)
+        console.log(`go to https://us12.admin.mailchimp.com/campaigns/edit?id=${this.campaign.web_id}`);
         return this.campaign;
+    }
+
+    async createCampaignContent() {
+        console.log(`create campaign content for ${this.campaignName} starts`);
+        await this.campaign.createContentFromTemplate(this.slug, {
+            image: 'image test',
+            title: 'title test',
+            description: 'description test',
+            date: this.__next_event.formattedDateMonth,
+            textLink: 'textLink test',
+            eventLink: 'eventLink test',
+            dateTime: this.__next_event.formattedDate
+        });
+
+        console.log(`create campaign content for ${this.campaignName} ends`);
+        console.log(`go to https://us12.admin.mailchimp.com/campaigns/edit?id=${this.campaign.web_id}`);
     }
 }
