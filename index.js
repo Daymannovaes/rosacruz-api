@@ -15,6 +15,7 @@ export const LS = new City({
 export const DIV = new City({
     slug: 'DIV',
     name: 'divinopolis',
+    realName: 'divinópolis',
     mailchimpSegmentId: 900149,
 });
 

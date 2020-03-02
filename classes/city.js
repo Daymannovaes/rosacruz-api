@@ -5,11 +5,14 @@ import { Campaign } from './mailchimp';
 import { Eventbrite } from './eventbrite';
 
 const Tag = city => city.replace(/ /g, '-');
+const camelizeWord = word => word[0].toUpperCase() + word.slice(1);
+const camelize = city => city.split(' ').map(camelizeWord).join(' ');
 
 export class City {
-    constructor({ slug, name, mailchimpSegmentId }) {
+    constructor({ slug, name, realName, mailchimpSegmentId }) {
         this.slug = slug.toUpperCase();
         this.name = name;
+        this.realName = realName || this.name;
         this.tag = Tag(this.name);
         this.mailchimpSegmentId = mailchimpSegmentId;
     }
@@ -134,8 +137,10 @@ export class City {
         .trim()
         .replace(/  +/g, ' ')
         .replace(/[“”"']/g, "")
-        .replace(new RegExp(`(Palestra em ${this.name})( *\/ *[a-zA-Z]+)?`, 'ig'), '$1')
-        .replace(new RegExp(`(Palestra em ${this.name})( *- *)?`, 'ig'), '$1: ')
+        .replace(new RegExp(`(Palestra em (${this.name}|${this.realName}))( *\/ *[a-zA-Z]+)?`, 'ig'), '$1')
+        .replace(new RegExp(`(Palestra em (${this.name}|${this.realName}))( *- *)?`, 'ig'), '$1: ')
+        .replace(new RegExp(this.name, 'i'), camelize(this.name))
+        .replace(new RegExp(this.realName, 'i'), camelize(this.realName))
         .trim();
     }
 }

@@ -7,6 +7,14 @@ describe('city.spec.js', () => {
         )).toBe('Palestra em Belo Horizonte: Alquimia - O Segredo da Transformação');
 
         expect(index.BH.normalizeSubject(
+            'Palestra em belo horizonte/MG  - “Alquimia - O Segredo da Transformação”'
+        )).toBe('Palestra em Belo Horizonte: Alquimia - O Segredo da Transformação');
+
+        expect(index.BH.normalizeSubject(
+            'Palestra em belo Horizonte/MG  - “Alquimia - O Segredo da Transformação”'
+        )).toBe('Palestra em Belo Horizonte: Alquimia - O Segredo da Transformação');
+
+        expect(index.BH.normalizeSubject(
             '   Palestra    em Belo Horizonte  / MG   -   “Alquimia - O Segredo da Transformação ”'
         )).toBe('Palestra em Belo Horizonte: Alquimia - O Segredo da Transformação');
 
@@ -22,10 +30,14 @@ describe('city.spec.js', () => {
 
         expect(index.DIV.normalizeSubject(
             'Palestra em divinopolis/MG  - “Alquimia - O Segredo da Transformação”'
-        )).toBe('Palestra em divinopolis: Alquimia - O Segredo da Transformação');
+        )).toBe('Palestra em Divinopolis: Alquimia - O Segredo da Transformação');
+
+        expect(index.DIV.normalizeSubject(
+            'Palestra em divinópolis/MG  - “Alquimia - O Segredo da Transformação”'
+        )).toBe('Palestra em Divinópolis: Alquimia - O Segredo da Transformação');
 
         expect(index.DIV.normalizeSubject(
             '   Palestra    em divinopolis  / MG   -   “Alquimia - O Segredo da Transformação ”'
-        )).toBe('Palestra em divinopolis: Alquimia - O Segredo da Transformação');
+        )).toBe('Palestra em Divinopolis: Alquimia - O Segredo da Transformação');
     });
 });
