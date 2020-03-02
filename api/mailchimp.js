@@ -69,3 +69,12 @@ export const createCampaign = ({
 }
 
 export const updateCampaignContent = (campaignId, html) => mcPut(`campaigns/${campaignId}/content`, { html });
+export const uploadFile = ({
+    folderId: folder_id,
+    fileData: file_data,
+    name,
+}) => mcPost(`/file-manager/files`, {
+    name,
+    folder_id,
+    file_data
+});

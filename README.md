@@ -29,6 +29,11 @@ index.BH.__events[0].orders
 index.BH.fetchNextEvent(); // fetch next event from eventbrite, from BH
 // wait for log `fetch next event from belo horizonte ends` to show up
 
-index.BH.createCampaign() // create campaign from Next Event
+index.BH.createCampaign(); // create campaign from Next Event
 // wait for log `create campaign "palestra ..." for belo horizonte ends`
+
+index.BH.createCampaignContent(title, description, googleDriveTextLink);
+
+index.BH.__next_event.info
+index.BH.__next_event.detailedInfo
 ```

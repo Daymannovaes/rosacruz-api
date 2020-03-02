@@ -39,6 +39,8 @@ export class Eventbrite {
     async fetchDetailedInfo() {
         this._details = await api.eventDetails(this.id);
         this.description = (await api.eventDescription(this.id)).description;
+        this.logo = get(this._details, 'logo.original.url', get(this._details, 'logo.url'));
+        this.logoData = await api.fetchImage(this.logo);
         this._detailsFetched = true;
         return this._details;
     }
@@ -52,7 +54,14 @@ export class Eventbrite {
     }
 
     get detailedInfo() {
-        return pick(this, ['description', 'logo']).concat(this.info);
+        return {
+            ...this.info,
+            ...pick(this, ['description', 'logo'])
+        };
+    }
+
+    get base64image() {
+        return Buffer.from(this.logoData, 'binary').toString('base64');
     }
 
     get formattedDate() {

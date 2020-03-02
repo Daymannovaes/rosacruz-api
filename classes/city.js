@@ -32,6 +32,7 @@ export class City {
         const event = await eventbrite.searchNextEvent(this.name);
         this.__next_event = new Eventbrite(event);
 
+        console.log(this.__next_event.info);
         console.log(`fetch next events from ${this.name} ends`);
         return this.__next_event;
     }
@@ -53,6 +54,7 @@ export class City {
         const event = this.__events[n];
         await event.fetchOrders();
 
+        console.log(event.info);
         console.log(`get event from ${this.name} ${n} ends`);
         return event;
     }
@@ -81,7 +83,7 @@ export class City {
         if (!this.readyToCreateCampaign) return undefined;
         console.log(`create campaign ${this.campaignName} for ${this.name} starts`);
         const campaign = await mailchimp.createCampaign({
-            subject,
+            subject: this.normalizeSubject(subject),
             previewText,
             name: this.campaignName,
             segmentId: this.mailchimpSegmentId
@@ -93,19 +95,47 @@ export class City {
         return this.campaign;
     }
 
-    async createCampaignContent() {
+    async createCampaignContent(title, description, textLink) {
         console.log(`create campaign content for ${this.campaignName} starts`);
+
+        const image = await this.uploadEventImageToMailchimp(this.__next_event);
         await this.campaign.createContentFromTemplate(this.slug, {
-            image: 'image test',
-            title: 'title test',
-            description: 'description test',
+            image,
+            title,
+            description,
             date: this.__next_event.formattedDateMonth,
-            textLink: 'textLink test',
-            eventLink: 'eventLink test',
+            textLink,
+            eventLink: this.__next_event.url,
             dateTime: this.__next_event.formattedDate
         });
 
         console.log(`create campaign content for ${this.campaignName} ends`);
         console.log(`go to https://us12.admin.mailchimp.com/campaigns/edit?id=${this.campaign.web_id}`);
+    }
+
+    async uploadEventImageToMailchimp(event) {
+        console.log(`uploadEventImageToMailchimp for ${this.campaignName} starts`);
+        await event.fetchDetailedInfo();
+        console.log(`event.base64image.length: ${event.base64image.length}`);
+
+        const file = await mailchimp.uploadFile({
+            name: `${event.name}.jpg`,
+            folderId: 0,
+            fileData: event.base64image
+        });
+
+        console.log(`uploadEventImageToMailchimp for ${this.campaignName} ends`);
+        console.log(`go to ${file.full_size_url}`);
+        return file.full_size_url;
+    }
+
+    normalizeSubject(subject) {
+        return subject
+        .trim()
+        .replace(/  +/g, ' ')
+        .replace(/[“”"']/g, "")
+        .replace(new RegExp(`(Palestra em ${this.name})( *\/ *[a-zA-Z]+)?`, 'ig'), '$1')
+        .replace(new RegExp(`(Palestra em ${this.name})( *- *)?`, 'ig'), '$1: ')
+        .trim();
     }
 }

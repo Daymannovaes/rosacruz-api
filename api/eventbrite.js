@@ -38,3 +38,7 @@ export const getPaginated = async ({ url, qs, type, maxRecords }) => {
 
 export const eventDetails = eventId => ebGet(`events/${eventId}`, 'expand=logo');
 export const eventDescription = eventId => ebGet(`events/${eventId}/description`);
+
+export const fetchImage = url => get(url, {
+    responseType: 'arraybuffer'
+}).then(response => response.data);

@@ -484,7 +484,7 @@
 
                         <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
 
-                            Esse é o tema de nossa palestra do dia {{DATE}}. Esperamos a sua presença!<br>
+                            Esse é o tema de nossa palestra do dia <strong>{{DATE}}</strong>. Esperamos a sua presença!<br>
 <br>
 Você pode <a href="{{TEXT_LINK}}" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #007C89;font-weight: normal;text-decoration: underline;">clicar aqui para ler</a> um texto relacionado,<br>
 e também pode acessar&nbsp;<a href="{{EVENT_LINK}}" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #007C89;font-weight: normal;text-decoration: underline;">esse link</a>&nbsp;para mais informações.
@@ -782,11 +782,10 @@ e também pode acessar&nbsp;<a href="{{EVENT_LINK}}" target="_blank" style="mso-
                             <em>Copyright © *|CURRENT_YEAR|* *|LIST:COMPANY|*, All rights reserved.</em><br>
 *|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*<br>
 <br>
-<strong>Our mailing address is:</strong><br>
+<strong>Nosso endereço é:</strong><br>
 *|HTML:LIST_ADDRESS_HTML|* *|END:IF|*<br>
 <br>
-Want to change how you receive these emails?<br>
-You can <a href="*|UPDATE_PROFILE|*" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text-decoration: underline;">update your preferences</a> or <a href="*|UNSUB|*" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text-decoration: underline;">unsubscribe from this list</a>.<br>
+<a href="*|UPDATE_PROFILE|*" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text-decoration: underline;">Atualizar preferências de email</a><br>
 <br>
 *|IF:REWARDS|* *|HTML:REWARDS|* *|END:IF|*
                         </td>
