@@ -3,6 +3,7 @@ import { chain, uniqBy } from 'lodash';
 
 const KEY = process.env.MAILCHIMP_KEY;
 const LIST_ID = process.env.MAILCHIMP_LIST;
+const ALUNOS_SEGMENT_ID = process.env.ALUNOS_SEGMENT_ID || 908934;
 
 const BASE_URL = 'https://us12.api.mailchimp.com/3.0';
 const mcGet = (path, qs = '') => get(`${BASE_URL}/${path}?${qs}`, {
@@ -43,6 +44,13 @@ export const getList = (listId) => mcGet(`lists/${listId}`);
 export const listCampaigns = () => mcGet('campaigns?count=100');
 export const campaignContent = campaignId => mcGet(`campaigns/${campaignId}/content`);
 
+const Segment = id => ({
+    condition_type: 'StaticSegment',
+    field: 'static_segment',
+    op: 'static_is',
+    value: id
+});
+
 export const createCampaign = ({
     name,
     subject,
@@ -61,7 +69,11 @@ export const createCampaign = ({
         recipients: {
             list_id: LIST_ID,
             segment_opts: {
-                saved_segment_id: segmentId
+                match: 'any',
+                conditions: [
+                    Segment(segmentId),
+                    Segment(ALUNOS_SEGMENT_ID)
+                ]
             }
         }
     };
